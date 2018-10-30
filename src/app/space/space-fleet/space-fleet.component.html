@@ -1,0 +1,10 @@
+<h2>{{name}}</h2>
+<div class="ships">
+  <app-space-ship *ngFor="let spaceShip of spaceShips | async; trackBy: trackByFn" [spaceShip]="spaceShip">
+  </app-space-ship>
+  <div class="new-ship-box">
+    <h3>Build new ship</h3>
+    <button type="button" id="create-viper-btn" (click)="buildShip(SpaceShipBlueprints.Viper)">Viper</button>
+    <button type="button" id="create-raider-btn" (click)="buildShip(SpaceShipBlueprints.Raider)">Raider</button>
+  </div>
+</div>

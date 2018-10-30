@@ -1,0 +1,12 @@
+<h3 [style.backgroundColor]="spaceShip.color">{{spaceShip.name}}</h3>
+<div class="image">
+  <img [src]="spaceShip.imageUrl"
+       [appLongClick]="{holdClass: 'shake-opacity'}"
+       (longclick)="hit($event)"
+       (dblclick)="destroy()">
+</div>
+<div class="health" [appLongClick]="{holdClass: 'shake-horizontal'}" (longclick)="repair($event)">
+  <div [style.width.%]="spaceShip.health">
+    <span>{{spaceShip.health}}%</span>
+  </div>
+</div>

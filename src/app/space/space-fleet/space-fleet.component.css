@@ -1,0 +1,23 @@
+.ships {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+app-space-ship, .new-ship-box {
+  width: 200px;
+  margin: 4px;
+}
+
+.new-ship-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  padding: 10px;
+  margin: 4px;
+  font-size: 16px;
+  width: 80%;
+}

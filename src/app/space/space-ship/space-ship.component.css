@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  border: 1px solid grey;
+}
+
+img {
+  max-width: 100%;
+  cursor: url('/assets/aim-icon.png') 20 20, auto;
+}
+
+h3 {
+  text-align: center;
+  margin: 0;
+  padding: 4px 0;
+}
+
+.image {
+  padding: 20px;
+}
+
+.health {
+  background: red;
+  overflow: hidden;
+  height: 40px;
+  cursor: url('/assets/heal-icon.png') 20 20, auto;
+}
+
+.health div {
+  height: 100%;
+  background: green;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}

@@ -1,0 +1,9 @@
+:host {
+  display: inline-block;
+  background-attachment: fixed;
+  background-color: black;
+  background-image: url('/assets/bg.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
