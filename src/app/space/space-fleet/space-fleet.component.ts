@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { SpaceShip, SpaceShipBlueprints } from '../models';
 import { SpaceShipService } from '../space-ship.service';
 import { spaceShipAnimation } from './space-fleet.animations';
@@ -10,13 +11,17 @@ import { spaceShipAnimation } from './space-fleet.animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [spaceShipAnimation],
 })
-export class SpaceFleetComponent {
+export class SpaceFleetComponent implements OnInit {
   @Input() name: string;
 
   SpaceShipBlueprints = SpaceShipBlueprints;
-  spaceShips = this.spaceShipService.getSpaceShips();
+  spaceShips: Observable<SpaceShip[]>;
 
   constructor(private spaceShipService: SpaceShipService) { }
+
+  ngOnInit(): void {
+    this.spaceShips = this.spaceShipService.getSpaceShips();
+  }
 
   buildShip(spaceShip: SpaceShip): void {
     this.spaceShipService.createShip(spaceShip);
