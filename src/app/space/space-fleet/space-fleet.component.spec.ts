@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BehaviorSubject, of } from 'rxjs';
 import { SpaceShip } from '../models';
 import { SpaceShipService } from '../space-ship.service';
 
@@ -18,7 +19,9 @@ class MockedSpaceShipComponent {
 // Mocked SpaceShipService
 class MockedSpaceShipService extends SpaceShipService {
   constructor() { super(null); }
-  setupListener() {}
+  setupListener() {
+    this.spaceShips = new BehaviorSubject<SpaceShip[]>([]);
+  }
 }
 
 // Mocked space ships collection
@@ -33,18 +36,31 @@ describe('SpaceFleetComponent', () => {
   let spaceShipService: SpaceShipService;
 
   beforeEach(() => {
+    // Setup testing module
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [
         SpaceFleetComponent,
-
+        MockedSpaceShipComponent
       ],
       providers: [
-
+        {provide: SpaceShipService, useClass: MockedSpaceShipService}
       ]
     });
 
+    // Create component
     fixture = TestBed.createComponent(SpaceFleetComponent);
+
+    // Setup input
+    fixture.componentInstance.name = 'My fleet';
+
+    // Setup SpaceShipService
+    spaceShipService = fixture.debugElement.injector.get(SpaceShipService);
+    spyOn(spaceShipService, 'createShip');
+    spyOn(spaceShipService, 'getSpaceShips').and
+      .returnValue(of(mockedSpaceShips));
+
+    // Initial change detection
     fixture.detectChanges();
   });
 

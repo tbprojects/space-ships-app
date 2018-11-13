@@ -7,7 +7,7 @@ const StorageKey = 'ships';
 
 @Injectable()
 export class SpaceShipService {
-  private spaceShips: BehaviorSubject<SpaceShip[]>;
+  protected spaceShips: BehaviorSubject<SpaceShip[]>;
 
   static nextId(): string {
     return Math.random().toString(36).substr(2, 5);
