@@ -69,14 +69,21 @@ describe('SpaceFleetComponent', () => {
   });
 
   it('should render fleet name', () => {
-    pending('todo');
+    const textContent = fixture.nativeElement.textContent;
+    expect(textContent).toContain('My fleet');
   });
 
   it('should render 2 space ships', () => {
-    pending('todo');
+    const shipNodes = fixture.nativeElement
+      .querySelectorAll('app-space-ship');
+    expect(shipNodes.length).toEqual(2);
   });
 
   it('should trigger viper production', () => {
-    pending('todo');
+    const createButton = fixture.nativeElement
+      .querySelector('#create-viper-btn');
+    createButton.click();
+    expect(spaceShipService.createShip)
+      .toHaveBeenCalledWith(jasmine.objectContaining({name: 'Viper'}));
   });
 });
