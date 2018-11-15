@@ -12,7 +12,7 @@ import { spaceShipAnimation } from './space-fleet.animations';
   animations: [spaceShipAnimation],
 })
 export class SpaceFleetComponent implements OnInit {
-  @Input() name: string;
+  @Input() fleetName: string;
 
   SpaceShipBlueprints = SpaceShipBlueprints;
   spaceShips: Observable<SpaceShip[]>;

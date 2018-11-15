@@ -1,4 +1,4 @@
-<h2>{{name}}</h2>
+<h2>{{fleetName}}</h2>
 <div class="ships">
   <app-space-ship *ngFor="let spaceShip of spaceShips | async; trackBy: trackByFn" [spaceShip]="spaceShip" @spaceship>
   </app-space-ship>

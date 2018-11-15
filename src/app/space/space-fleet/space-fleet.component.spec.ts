@@ -52,7 +52,7 @@ describe('SpaceFleetComponent', () => {
     fixture = TestBed.createComponent(SpaceFleetComponent);
 
     // Setup input
-    fixture.componentInstance.name = 'My fleet';
+    fixture.componentInstance.fleetName = 'My fleet';
 
     // Setup SpaceShipService
     spaceShipService = fixture.debugElement.injector.get(SpaceShipService);
