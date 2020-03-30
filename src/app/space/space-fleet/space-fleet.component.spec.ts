@@ -1,35 +1,11 @@
-import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BehaviorSubject, of } from 'rxjs';
-import { SpaceShip } from '../models';
+import { MockComponent } from 'ng-mocks';
+import { of } from 'rxjs';
+import { Mock } from 'ts-mockery';
 import { SpaceShipService } from '../space-ship.service';
-
+import { SpaceShipComponent } from '../space-ship/space-ship.component';
 import { SpaceFleetComponent } from './space-fleet.component';
-
-// Mocked SpaceShipComponent
-@Component({
-  selector: 'app-space-ship',
-  template: 'mocked space ship'
-})
-class MockedSpaceShipComponent {
-  @Input() spaceShip;
-}
-
-// Mocked SpaceShipService
-class MockedSpaceShipService extends SpaceShipService {
-  constructor() { super(null); }
-  setupListener() {
-    this.spaceShips = new BehaviorSubject<SpaceShip[]>([]);
-  }
-}
-
-// Mocked space ships collection
-const mockedSpaceShips: SpaceShip[] = [
-  {id: '123', name: 'Viper', imageUrl: '', health: 100, color: 'red'},
-  {id: '234', name: 'Raptor', imageUrl: '', health: 100, color: 'green'},
-];
-
 
 describe('SpaceFleetComponent', () => {
   let fixture: ComponentFixture<SpaceFleetComponent>;
@@ -41,10 +17,19 @@ describe('SpaceFleetComponent', () => {
       imports: [NoopAnimationsModule],
       declarations: [
         SpaceFleetComponent,
-        MockedSpaceShipComponent
+        MockComponent(SpaceShipComponent)
       ],
       providers: [
-        {provide: SpaceShipService, useClass: MockedSpaceShipService}
+        {
+          provide: SpaceShipService,
+          useValue: Mock.of<SpaceShipService>({
+            createShip: () => {},
+            getSpaceShips: () => of([
+                {id: '123', name: 'Viper', imageUrl: '', health: 100, color: 'red'},
+                {id: '234', name: 'Raptor', imageUrl: '', health: 100, color: 'green'},
+            ])
+          })
+        }
       ]
     });
 
@@ -56,9 +41,6 @@ describe('SpaceFleetComponent', () => {
 
     // Setup SpaceShipService
     spaceShipService = fixture.debugElement.injector.get(SpaceShipService);
-    spyOn(spaceShipService, 'createShip');
-    spyOn(spaceShipService, 'getSpaceShips').and
-      .returnValue(of(mockedSpaceShips));
 
     // Initial change detection
     fixture.detectChanges();
@@ -80,6 +62,7 @@ describe('SpaceFleetComponent', () => {
   });
 
   it('should trigger viper production', () => {
+    spyOn(spaceShipService, 'createShip');
     const createButton = fixture.nativeElement
       .querySelector('#create-viper-btn');
     createButton.click();
