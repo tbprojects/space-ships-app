@@ -3,7 +3,7 @@ import { LocalStorageConfig, LocalStorageService } from './local-storage.service
 
 @NgModule()
 export class LocalStorageModule {
-  static forRoot(config?: LocalStorageConfig): ModuleWithProviders {
+  static forRoot(config?: LocalStorageConfig): ModuleWithProviders<LocalStorageModule> {
     return {
       ngModule: LocalStorageModule,
       providers: [
